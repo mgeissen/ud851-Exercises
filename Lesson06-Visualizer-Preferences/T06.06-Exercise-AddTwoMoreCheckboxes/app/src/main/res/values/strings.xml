@@ -26,4 +26,8 @@
 
     <!-- Value in SharedPreferences for green color option -->
     <string name="pref_color_green_value" translatable="false">green</string>
+    <string name="pref_show_treble_key">showTreble</string>
+    <string name="pref_show_treble_label">Treble</string>
+    <string name="pref_show_mid_key">midKey</string>
+    <string name="pref_show_mid_label">Mid</string>
 </resources>

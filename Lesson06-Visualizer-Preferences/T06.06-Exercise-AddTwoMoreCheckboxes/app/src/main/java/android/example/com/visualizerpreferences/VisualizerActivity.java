@@ -53,20 +53,38 @@ public class VisualizerActivity extends AppCompatActivity implements SharedPrefe
     private void setupSharedPreferences() {
         // Get all of the values from shared preferences to set it up
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mVisualizerView.setShowBass(sharedPreferences.getBoolean(getString(R.string.pref_show_bass_key),
-                getResources().getBoolean(R.bool.pref_show_bass_default)));
-        mVisualizerView.setShowMid(true);
-        mVisualizerView.setShowTreble(true);
+        setupBass(sharedPreferences);
+        setupMid(sharedPreferences);
+        setupTreble(sharedPreferences);
+
         mVisualizerView.setMinSizeScale(1);
         mVisualizerView.setColor(getString(R.string.pref_color_red_value));
         // Register the listener
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
+    private void setupTreble(SharedPreferences sharedPreferences) {
+        mVisualizerView.setShowTreble(sharedPreferences.getBoolean(getString(R.string.pref_show_treble_key), getResources().getBoolean(R.bool.pref_show_treble_default)));
+    }
+
+    private void setupMid(SharedPreferences sharedPreferences) {
+        mVisualizerView.setShowMid(sharedPreferences.getBoolean(getString(R.string.pref_show_mid_key),
+                getResources().getBoolean(R.bool.pref_show_mid_default)));
+    }
+
+    private void setupBass(SharedPreferences sharedPreferences) {
+        mVisualizerView.setShowBass(sharedPreferences.getBoolean(getString(R.string.pref_show_bass_key),
+                getResources().getBoolean(R.bool.pref_show_bass_default)));
+    }
+
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.pref_show_bass_key))) {
-            mVisualizerView.setShowBass(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.pref_show_bass_default)));
+            setupBass(sharedPreferences);
+        } else if(key.equals(getString(R.string.pref_show_treble_key))){
+            setupTreble(sharedPreferences);
+        } else if(key.equals(getString(R.string.pref_show_mid_key))){
+            setupMid(sharedPreferences);
         }
     }
 
